@@ -44,16 +44,16 @@ public class ICController extends SceneController implements Initializable {
     private TableColumn<patientsIC, String> nameCol;
 
     @FXML
-    private  TableColumn<patientsIC,String > medicineCol;
+    private TableColumn<patientsIC, String> medicineCol;
     @FXML
-    private TableColumn<patientsIC,Integer> priceCol;
+    private TableColumn<patientsIC, Integer> priceCol;
     @FXML
-    private TableColumn<patientsIC,Integer> prospectCol;
+    private TableColumn<patientsIC, Integer> prospectCol;
     @FXML
-    private TableColumn<patientsIC,Integer> idCol;
+    private TableColumn<patientsIC, Integer> idCol;
 
     ObservableList<patientsIC> PatientICList = FXCollections.observableArrayList();
-    int index =-1;
+    int index = -1;
     String query = null;
     Connection connection = null;
     ResultSet resultSet = null;
@@ -61,25 +61,27 @@ public class ICController extends SceneController implements Initializable {
 
 
     @FXML
-    protected void onAdd(){
+    protected void onAdd() {
         connection = database.getConnection();
         String sql = "insert into patientsIC(name,medicine,price,prospect) values(?,?,?,?)";
-        try{
+        try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, txtName.getText());
-            preparedStatement.setString(2,txtMedicine.getText());
+            preparedStatement.setString(2, txtMedicine.getText());
             Integer valuePrice = Integer.parseInt(txtPrice.getText());
             Integer valueProspect = Integer.parseInt(txtProspect.getText());
             preparedStatement.setInt(3, valuePrice);
             preparedStatement.setInt(4, valueProspect);
-            if(valueProspect == 1 || valueProspect == 101 || valueProspect == 111)
-            preparedStatement.execute();
+            if (valueProspect == 1 || valueProspect == 101 || valueProspect == 111)
+                preparedStatement.execute();
             else txt.setText("Invalid Prospect");
             onUpdate();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    };
+    }
+
+    ;
 
     public void onUpdate() {
         System.out.println("da");
@@ -90,11 +92,10 @@ public class ICController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                PatientICList.add(new patientsIC(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"),resultSet.getInt("prospect"),resultSet.getInt("id")));
+                PatientICList.add(new patientsIC(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"), resultSet.getInt("prospect"), resultSet.getInt("id")));
                 patientsICTable.setItems(PatientICList);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -102,12 +103,12 @@ public class ICController extends SceneController implements Initializable {
     public void onRemove( ActionEvent actionEvent ) {
         connection = database.getConnection();
         String sql = "delete from patientsIC where id = ?";
-        try{
-            preparedStatement= connection.prepareStatement(sql);
+        try {
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, Integer.parseInt(txtId.getText()));
             preparedStatement.execute();
             onUpdate();
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -115,9 +116,10 @@ public class ICController extends SceneController implements Initializable {
     public void goBack( ActionEvent actionEvent ) {
         this.changeScene(SCENE_IDENTIFIER.MEDICPAGE);
     }
+
     @FXML
     public void onEdit( ActionEvent actionEvent ) {
-        try{
+        try {
             connection = database.getConnection();
             String value1 = txtName.getText();
             String value2 = txtMedicine.getText();
@@ -127,20 +129,21 @@ public class ICController extends SceneController implements Initializable {
             Integer intProspect = Integer.parseInt(value4);
             String value5 = txtId.getText();
             Integer intId = Integer.parseInt(value5);
-            String sql = "update patientsIC set medicine = '"+value2+"',price="+value3+",prospect="+value4+", name = '"+value1+"' where id ="+intId;
+            String sql = "update patientsIC set medicine = '" + value2 + "',price=" + value3 + ",prospect=" + value4 + ", name = '" + value1 + "' where id =" + intId;
             preparedStatement = connection.prepareStatement(sql);
-            if(intProspect == 1 || intProspect == 101 || intProspect == 111)
-            preparedStatement.execute();
+            if (intProspect == 1 || intProspect == 101 || intProspect == 111)
+                preparedStatement.execute();
             else txt.setText("invalid prospect(edit)");
             onUpdate();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     public void getSelected( MouseEvent mouseEvent ) {
         index = patientsICTable.getSelectionModel().getSelectedIndex();
-        if(index <= -1){
+        if (index <= -1) {
             return;
         }
         txtName.setText(nameCol.getCellData(index));
@@ -154,7 +157,8 @@ public class ICController extends SceneController implements Initializable {
     public void initialize( URL url, ResourceBundle resourceBundle ) {
         loadData();
     }
-    public void loadData(){
+
+    public void loadData() {
         connection = database.getConnection();
         onUpdate();
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
