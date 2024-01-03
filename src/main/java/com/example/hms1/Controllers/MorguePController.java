@@ -9,15 +9,15 @@ public class MorguePController extends ERPController {
         String namev1 = txtName.getText();
         PatientList.clear();
         query = "select * from morgue";
-        try{
+        try {
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                if(namev1.equals(resultSet.getString("name")))
-                    PatientList.add(new names(resultSet.getInt("id"),resultSet.getString("name")));
+            while (resultSet.next()) {
+                if (namev1.equals(resultSet.getString("name")))
+                    PatientList.add(new names(resultSet.getInt("id"), resultSet.getString("name")));
                 patientsTable.setItems(PatientList);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -32,11 +32,10 @@ public class MorguePController extends ERPController {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                PatientList.add(new names(resultSet.getInt("id"),resultSet.getString("name")));
+                PatientList.add(new names(resultSet.getInt("id"), resultSet.getString("name")));
                 patientsTable.setItems(PatientList);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

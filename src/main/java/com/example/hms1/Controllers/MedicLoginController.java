@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class MedicLoginController extends SceneController{
+public class MedicLoginController extends SceneController {
     @FXML
     private Text credentialsText;
     @FXML
@@ -21,26 +21,23 @@ public class MedicLoginController extends SceneController{
     private PasswordField passwordField;
 
     @FXML
-    protected void onGoBackButton(){
+    protected void onGoBackButton() {
         this.changeScene(SCENE_IDENTIFIER.MAINPAGE);
     }
+
     @FXML
-    protected void onLogInButton(){
-        if(!usernameField.getText().isBlank() && !passwordField.getText().isBlank())
-        {
+    protected void onLogInButton() {
+        if (!usernameField.getText().isBlank() && !passwordField.getText().isBlank()) {
             credentialsText.setText("You tried!");
             int valid = validateLogin();
             System.out.println(valid);
-            if(valid == 2)
-            {
+            if (valid == 2) {
                 this.changeScene(SCENE_IDENTIFIER.ADMIN);
             }
-            if(valid == 1)
-            {
+            if (valid == 1) {
                 this.changeScene(SCENE_IDENTIFIER.MEDICPAGE);
             }
-        }
-        else {
+        } else {
             credentialsText.setText("Please fill up all fields!");
         }
         usernameField.setText("");
@@ -48,25 +45,24 @@ public class MedicLoginController extends SceneController{
     }
 
     protected int validateLogin() {
-        database connectNow= new database();
+        database connectNow = new database();
         Connection connection = connectNow.getConnection();
 
-        String verifyLogin = " select count(1) from accounts where username = '" + usernameField.getText()+ "' and passwords = '" + passwordField.getText() + "'";
-        String checkIfAdmin = " select username from accounts where username = '" + usernameField.getText()+ "' and passwords = '" + passwordField.getText() + "'";
-        try{
+        String verifyLogin = " select count(1) from accounts where username = '" + usernameField.getText() + "' and passwords = '" + passwordField.getText() + "'";
+        String checkIfAdmin = " select username from accounts where username = '" + usernameField.getText() + "' and passwords = '" + passwordField.getText() + "'";
+        try {
             Statement statement = connection.createStatement();
             Statement statement1 = connection.createStatement();
             ResultSet queryResult = statement.executeQuery(verifyLogin);
             ResultSet queryResultAdmin = statement1.executeQuery(checkIfAdmin);
 
-            while(queryResult.next() && queryResultAdmin.next()){
-                if(queryResult.getInt(1)==1){
+            while (queryResult.next() && queryResultAdmin.next()) {
+                if (queryResult.getInt(1) == 1) {
                     credentialsText.setText("Enter credentials!");
-                    if(queryResultAdmin.getString(1).equals("admin"))
+                    if (queryResultAdmin.getString(1).equals("admin"))
                         return 2;
                     return 1;
-                }
-                else{
+                } else {
                     return 0;
                 }
             }

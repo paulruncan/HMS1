@@ -16,9 +16,10 @@ public class ApplicationHandler {
     private final HashMap<SCENE_IDENTIFIER, Pane> views = new HashMap<>();
     private Stage stage;
 
-    private ApplicationHandler() {}
+    private ApplicationHandler() {
+    }
 
-    public void startApplication(Stage stage){
+    public void startApplication( Stage stage ) {
         this.initializeViews();
 
         this.stage = stage;
@@ -30,18 +31,18 @@ public class ApplicationHandler {
         Logger.info("Application started..");
     }
 
-    public void changeScene(SCENE_IDENTIFIER newScene) {
+    public void changeScene( SCENE_IDENTIFIER newScene ) {
         this.stage.getScene().setRoot(views.get(newScene));
     }
 
-    public void closeApplication(){
+    public void closeApplication() {
         Platform.exit();
         System.exit(0);
     }
 
     private void initializeViews() {
         try {
-            for (SCENE_IDENTIFIER value : SCENE_IDENTIFIER.values()) {
+            for( SCENE_IDENTIFIER value : SCENE_IDENTIFIER.values() ) {
                 this.views.put(value, FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource(value.label))));
             }
         } catch (IOException | NullPointerException exception) {
@@ -53,7 +54,7 @@ public class ApplicationHandler {
     public static ApplicationHandler _instance = null;
 
     public static ApplicationHandler getInstance() {
-        if(ApplicationHandler._instance == null){
+        if (ApplicationHandler._instance == null) {
             ApplicationHandler._instance = new ApplicationHandler();
         }
 

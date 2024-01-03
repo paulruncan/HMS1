@@ -1,4 +1,5 @@
 package com.example.hms1.Controllers;
+
 import com.example.hms1.Patients.names;
 import com.example.hms1.database;
 import com.example.hms1.Patients.patients;
@@ -37,10 +38,10 @@ public class ERPController extends SceneController implements Initializable {
     @FXML
     private TableColumn<names, String> nameCol;
     @FXML
-    private TableColumn<names,Integer> idCol;
+    private TableColumn<names, Integer> idCol;
 
     ObservableList<names> PatientList = FXCollections.observableArrayList();
-    int index =-1;
+    int index = -1;
     String query = null;
     Connection connection = null;
     ResultSet resultSet = null;
@@ -61,11 +62,12 @@ public class ERPController extends SceneController implements Initializable {
     }
 
     @FXML
-    public void goBack(){this.changeScene(SCENE_IDENTIFIER.PUBLIV);}
+    public void goBack() {
+        this.changeScene(SCENE_IDENTIFIER.PUBLIV);
+    }
 
     @FXML
-    public void onUpdate()
-    {
+    public void onUpdate() {
         System.out.println("da");
         PatientList.clear();
         query = "select * from patients";
@@ -74,19 +76,20 @@ public class ERPController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                PatientList.add(new names(resultSet.getInt("id"),resultSet.getString("name")));
+                PatientList.add(new names(resultSet.getInt("id"), resultSet.getString("name")));
                 patientsTable.setItems(PatientList);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public void initialize( URL url, ResourceBundle resourceBundle ) {
         loadDate();
     }
-    public void loadDate(){
+
+    public void loadDate() {
         connection = database.getConnection();
         onUpdate();
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -94,10 +97,9 @@ public class ERPController extends SceneController implements Initializable {
     }
 
     @FXML
-    public void getSelected()
-    {
+    public void getSelected() {
         index = patientsTable.getSelectionModel().getSelectedIndex();
-        if(index <= -1){
+        if (index <= -1) {
             return;
         }
         txtName.setText(nameCol.getCellData(index));
@@ -108,16 +110,16 @@ public class ERPController extends SceneController implements Initializable {
         String namev1 = txtName.getText();
         int price = 0;
         query = "select * from patients";
-        try{
+        try {
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                if(namev1.equals(resultSet.getString("name")))
-                    price+=resultSet.getInt("price");
+            while (resultSet.next()) {
+                if (namev1.equals(resultSet.getString("name")))
+                    price += resultSet.getInt("price");
             }
             textNume.setText("Nume: " + namev1);
             textPrice.setText("Price: " + price);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -126,17 +128,17 @@ public class ERPController extends SceneController implements Initializable {
         String namev1 = txtName.getText();
         PatientList.clear();
         query = "select * from patients";
-        try{
+        try {
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                if(namev1.equals(resultSet.getString("name")))
-                    PatientList.add(new names(resultSet.getInt("id"),resultSet.getString("name")));
+            while (resultSet.next()) {
+                if (namev1.equals(resultSet.getString("name")))
+                    PatientList.add(new names(resultSet.getInt("id"), resultSet.getString("name")));
                 patientsTable.setItems(PatientList);
             }
             textNume.setText("Nume: " + namev1);
             textPrice.setText("Price:");
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

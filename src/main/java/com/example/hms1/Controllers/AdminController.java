@@ -34,18 +34,18 @@ public class AdminController extends SceneController implements Initializable {
     @FXML
     private TableColumn<medics, String> usernameCol;
     @FXML
-    private  TableColumn<medics,String> passwordCol;
+    private TableColumn<medics, String> passwordCol;
     @FXML
-    private TableColumn<medics,Integer> idCol;
+    private TableColumn<medics, Integer> idCol;
 
 
     ObservableList<medics> medicsList = FXCollections.observableArrayList();
-    int index =-1;
+    int index = -1;
     String query = null;
     Connection connection = null;
     ResultSet resultSet = null;
     PreparedStatement preparedStatement = null;
-    
+
     @Override
     public void initialize( URL url, ResourceBundle resourceBundle ) {
         loadData();
@@ -61,7 +61,7 @@ public class AdminController extends SceneController implements Initializable {
 
     public void getSelected( MouseEvent mouseEvent ) {
         index = medicsTable.getSelectionModel().getSelectedIndex();
-        if(index <= -1){
+        if (index <= -1) {
             return;
         }
         txtUsername.setText(usernameCol.getCellData(index));
@@ -70,17 +70,17 @@ public class AdminController extends SceneController implements Initializable {
     }
 
     public void onEdit( ActionEvent actionEvent ) {
-        try{
+        try {
             connection = database.getConnection();
             String value1 = txtUsername.getText();
             String value2 = txtId.getText();
             Integer intId = Integer.parseInt(value2);
             String value3 = txtPassword.getText();
-            String sql = "update accounts set passwords = '"+value3+"',username = '"+value1+"' where id ="+intId;
+            String sql = "update accounts set passwords = '" + value3 + "',username = '" + value1 + "' where id =" + intId;
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
             onUpdate();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -92,12 +92,12 @@ public class AdminController extends SceneController implements Initializable {
     public void onRemove( ActionEvent actionEvent ) {
         connection = database.getConnection();
         String sql = "delete from accounts where id = ?";
-        try{
-            preparedStatement= connection.prepareStatement(sql);
+        try {
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, Integer.parseInt(txtId.getText()));
             preparedStatement.execute();
             onUpdate();
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -106,13 +106,13 @@ public class AdminController extends SceneController implements Initializable {
 
         connection = database.getConnection();
         String sql = "insert into accounts(username,passwords) values(?,?)";
-        try{
+        try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, txtUsername.getText());
-            preparedStatement.setString(2,txtPassword.getText());
+            preparedStatement.setString(2, txtPassword.getText());
             preparedStatement.execute();
             onUpdate();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -126,11 +126,10 @@ public class AdminController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                medicsList.add(new medics(resultSet.getInt("id"),resultSet.getString("username"), resultSet.getString("passwords")));
+                medicsList.add(new medics(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("passwords")));
                 medicsTable.setItems(medicsList);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

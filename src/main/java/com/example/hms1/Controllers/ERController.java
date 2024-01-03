@@ -1,4 +1,5 @@
 package com.example.hms1.Controllers;
+
 import com.example.hms1.database;
 import com.example.hms1.Patients.patients;
 import com.example.hms1.utils.SceneController;
@@ -36,40 +37,44 @@ public class ERController extends SceneController implements Initializable {
     private TableColumn<patients, String> nameCol;
 
     @FXML
-    private  TableColumn<patients,String > medicineCol;
+    private TableColumn<patients, String> medicineCol;
     @FXML
-    private TableColumn<patients,Integer> priceCol;
+    private TableColumn<patients, Integer> priceCol;
     @FXML
-    private TableColumn<patients,Integer> idCol;
+    private TableColumn<patients, Integer> idCol;
 
     ObservableList<patients> PatientList = FXCollections.observableArrayList();
-    int index =-1;
+    int index = -1;
     String query = null;
     Connection connection = null;
     ResultSet resultSet = null;
     PreparedStatement preparedStatement = null;
+
     //patients patient = null;
     @FXML
-    public void goBack(){this.changeScene(SCENE_IDENTIFIER.MEDICPAGE);}
+    public void goBack() {
+        this.changeScene(SCENE_IDENTIFIER.MEDICPAGE);
+    }
+
     @FXML
-    public void onAdd(){
+    public void onAdd() {
         connection = database.getConnection();
         String sql = "insert into patients(name,medicine,price) values(?,?,?)";
-        try{
+        try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, txtName.getText());
-            preparedStatement.setString(2,txtMedicine.getText());
+            preparedStatement.setString(2, txtMedicine.getText());
             Integer valuePrice = Integer.parseInt(txtPrice.getText());
             preparedStatement.setInt(3, valuePrice);
             preparedStatement.execute();
             onUpdate();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @FXML
-    public void onUpdate()
-    {
+    public void onUpdate() {
         System.out.println("da");
         PatientList.clear();
         query = "select * from patients";
@@ -78,19 +83,20 @@ public class ERController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                PatientList.add(new patients(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"),resultSet.getInt("id")));
-            patientsTable.setItems(PatientList);
+                PatientList.add(new patients(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"), resultSet.getInt("id")));
+                patientsTable.setItems(PatientList);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public void initialize( URL url, ResourceBundle resourceBundle ) {
         loadDate();
     }
-    public void loadDate(){
+
+    public void loadDate() {
         connection = database.getConnection();
         onUpdate();
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -98,9 +104,10 @@ public class ERController extends SceneController implements Initializable {
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     }
+
     @FXML
-    public void onEdit(){
-        try{
+    public void onEdit() {
+        try {
             connection = database.getConnection();
             String value1 = txtName.getText();
             String value2 = txtMedicine.getText();
@@ -108,19 +115,19 @@ public class ERController extends SceneController implements Initializable {
             Integer intVal = Integer.parseInt(value3);
             String value4 = txtId.getText();
             Integer intProspect = Integer.parseInt(value4);
-            String sql = "update patients set medicine = '"+value2+"',price="+value3+",name = '"+value1+"' where id ="+intProspect;
+            String sql = "update patients set medicine = '" + value2 + "',price=" + value3 + ",name = '" + value1 + "' where id =" + intProspect;
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
             onUpdate();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @FXML
-    public void getSelected()
-    {
+    public void getSelected() {
         index = patientsTable.getSelectionModel().getSelectedIndex();
-        if(index <= -1){
+        if (index <= -1) {
             return;
         }
         txtName.setText(nameCol.getCellData(index));
@@ -132,12 +139,12 @@ public class ERController extends SceneController implements Initializable {
     public void onRemove( ActionEvent actionEvent ) {
         connection = database.getConnection();
         String sql = "delete from patients where id = ?";
-        try{
-            preparedStatement= connection.prepareStatement(sql);
+        try {
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, Integer.parseInt(txtId.getText()));
             preparedStatement.execute();
             onUpdate();
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

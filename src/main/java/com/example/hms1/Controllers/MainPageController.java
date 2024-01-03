@@ -9,8 +9,11 @@ import javafx.scene.text.Text;
 public class MainPageController extends SceneController {
     @FXML
     private Text randomText;
+
     @FXML
-    protected void onMedicButtonClick(){this.changeScene(SCENE_IDENTIFIER.MEDIC);}
+    protected void onMedicButtonClick() {
+        this.changeScene(SCENE_IDENTIFIER.MEDIC);
+    }
 
     public void onPublicButton() {
         this.changeScene(SCENE_IDENTIFIER.PUBLIV);
