@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hms1.Controllers.ICPController">
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #0998ff;">
+            <children>
+                <Button layoutX="36.0" layoutY="142.0" mnemonicParsing="false" onAction="#onUpdate" prefHeight="32.0" prefWidth="123.0" text="Update" textAlignment="CENTER" textFill="#0998ff">
+                    <font>
+                        <Font name="Candara Light" size="12.0" />
+                    </font>
+                </Button>
+                <TextField fx:id="txtName" layoutX="23.0" layoutY="97.0" promptText="name..." />
+                <Text fill="WHITE" layoutX="23.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commands Panel" textAlignment="CENTER" wrappingWidth="149.0">
+                    <font>
+                        <Font name="Candara Light" size="24.0" />
+                    </font>
+                </Text>
+                <Button layoutX="-5.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" textAlignment="CENTER" textFill="#0998ff">
+                    <font>
+                        <Font name="Candara Light" size="12.0" />
+                    </font>
+                </Button>
+                <TextField fx:id="txtId" layoutX="24.0" layoutY="64.0" prefHeight="25.0" prefWidth="36.0" promptText="id..." />
+                <Button layoutX="36.0" layoutY="185.0" mnemonicParsing="false" onAction="#onCheckPrice" prefHeight="30.0" prefWidth="123.0" text="Check Price" textFill="#0998ff">
+                    <font>
+                        <Font name="Candara Light" size="12.0" />
+                    </font>
+                </Button>
+                <Button layoutX="36.0" layoutY="228.0" mnemonicParsing="false" onAction="#onCheck" prefHeight="30.0" prefWidth="123.0" text="Check Existence" textFill="#0998ff">
+                    <font>
+                        <Font name="Candara Light" size="12.0" />
+                    </font>
+                </Button>
+            <TextField fx:id="daysText" layoutX="71.0" layoutY="275.0" prefHeight="25.0" prefWidth="46.0" promptText="Days..." />
+            <Button layoutX="36.0" layoutY="312.0" mnemonicParsing="false" onAction="#onCheckDays" prefHeight="30.0" prefWidth="123.0" text="Check Price / Days" textFill="#0998ff">
+               <font>
+                  <Font name="Candara Light" size="12.0" />
+               </font>
+            </Button>
+            </children></AnchorPane>
+        <VBox prefHeight="400.0" prefWidth="426.0">
+            <children>
+                <TableView fx:id="patientsTable" onMouseClicked="#getSelected" prefHeight="288.0" prefWidth="413.0">
+                    <columns>
+                        <TableColumn fx:id="idCol" prefWidth="44.0" text="id" />
+                        <TableColumn fx:id="nameCol" prefWidth="355.0" text="name" />
+                    </columns>
+                </TableView>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <Text fx:id="textNume" layoutX="21.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="379.13671875">
+                            <font>
+                                <Font name="Candara Light Italic" size="24.0" />
+                            </font>
+                        </Text>
+                        <Text fx:id="textPrice" layoutX="21.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" wrappingWidth="379.13671875">
+                            <font>
+                                <Font name="Candara Light" size="24.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
+</HBox>

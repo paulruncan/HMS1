@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="381.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hms1.Controllers.MainPageController">
+   <top>
+      <HBox alignment="CENTER">
+         <children>
+            <ImageView fitHeight="146.0" fitWidth="206.0" HBox.hgrow="ALWAYS">
+               <image>
+                  <Image url="file:/C:/Users/paulr/IdeaProjects/HMS1/src/main/foto/download.jfif" />
+               </image>
+            </ImageView>
+            <Text fill="#306bf5" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Saving Lives is what we DO" textAlignment="CENTER" wrappingWidth="392.939453125" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Sitka Subheading Bold" size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <ImageView fitHeight="217.0" fitWidth="205.0" BorderPane.alignment="BOTTOM_CENTER">
+         <image>
+            <Image url="file:/C:/Users/paulr/IdeaProjects/HMS1/src/main/foto/hsymbol.png" />
+         </image>
+      </ImageView>
+   </left>
+   <bottom>
+      <Text opacity="0.41" strokeType="OUTSIDE" strokeWidth="0.0" text="If you have been granted with an MEDIC account please choose &quot;Medic Login&quot; @Copyrights reserved" wrappingWidth="598.13671875" BorderPane.alignment="BOTTOM_RIGHT" />
+   </bottom>
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button ellipsisString="" mnemonicParsing="false" prefHeight="36.0" prefWidth="117.0" text="Go To Public View" onAction="#onPublicButton" textAlignment="CENTER" textFill="#3151d3" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Candara Light" size="12.0" />
+               </font>
+            </Button>
+            <Button onAction="#onMedicButtonClick" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="87.0"  text="Medic Login" textFill="#3151d3" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Candara Light" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
