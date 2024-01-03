@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/paulr/IdeaProjects/HMS1</OriginalElement>
+  <nodes>
+    <node x="1849.2549779640867" y="735.6472728922917">com.example.hms1.utils.Logger</node>
+    <node x="1450.8848968838183" y="219.81195296453407">com.example.hms1.Patients.names</node>
+    <node x="1449.2532760722845" y="778.2539502861638">com.example.hms1.Patients.patientsIC</node>
+    <node x="380.02376643562604" y="823.9371379955038">com.example.hms1.Controllers.AdminController</node>
+    <node x="762.3682702570366" y="304.3649110644158">com.example.hms1.Controllers.ICController</node>
+    <node x="1180.9376159068934" y="628.2720171160827">com.example.hms1.Controllers.PublicController</node>
+    <node x="1438.8034452601783" y="496.8078556308689">com.example.hms1.Patients.patients</node>
+    <node x="1165.4976692370165" y="859.2625527987711">com.example.hms1.Controllers.HelloController</node>
+    <node x="1742.0824250269038" y="257.2735444859695">com.example.hms1.utils.ApplicationHandler</node>
+    <node x="437.8618213979505" y="1455.2937550380498">com.example.hms1.HelloApplication</node>
+    <node x="1167.8222019017426" y="188.14814880543122">com.example.hms1.Controllers.MainPageController</node>
+    <node x="715.8301876956967" y="131.2954353478227">com.example.hms1.utils.SceneController</node>
+    <node x="175.69585909019514" y="569.4063337007942">com.example.hms1.Controllers.ICPController</node>
+    <node x="1015.974539685204" y="1080.8835884503003">com.example.hms1.utils.Environment</node>
+    <node x="1165.6536052252427" y="388.76699461170017">com.example.hms1.Controllers.MedicPageController</node>
+    <node x="356.5027272289581" y="-266.811032718343">com.example.hms1.Controllers.MorgueController</node>
+    <node x="136.30836070571212" y="393.39694042882263">com.example.hms1.Controllers.MorguePController</node>
+    <node x="1301.2324688892543" y="1044.2610983396685">com.example.hms1.database</node>
+    <node x="772.7663170972507" y="1293.7944939600022">com.example.hms1.Controllers.ERController</node>
+    <node x="434.35381164968373" y="439.5543632063527">com.example.hms1.Controllers.MedicLoginController</node>
+    <node x="1688.1760100811478" y="978.1960725639775">com.example.hms1.Patients.medics</node>
+    <node x="2141.806842527975" y="529.1239139029296">com.example.hms1.Patients.bodies</node>
+    <node x="816.8477979276889" y="-580.844566541262">com.example.hms1.Controllers.ERPController</node>
+    <node x="55.39084434836599" y="1017.4031724009337">com.example.hms1.utils.enums.SCENE_IDENTIFIER</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.hms1.Controllers.MainPageController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="-106.50020190174268" y="-1.4880543120554535E-4" />
+      <point x="1135.0" y="257.648" />
+      <point x="1135.0" y="286.865" />
+      <point x="733.0" y="286.865" />
+      <point x="733.0" y="267.5" />
+      <point x="693.0" y="267.5" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.PublicController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="-97.49961590689327" y="-1.7116082631218887E-5" />
+      <point x="1135.0" y="708.7719999999999" />
+      <point x="1135.0" y="286.865" />
+      <point x="733.0" y="286.865" />
+      <point x="733.0" y="267.5" />
+      <point x="693.0" y="267.5" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.ICPController" target="com.example.hms1.Controllers.ERPController" relationship="GENERALIZATION">
+      <point x="-86.99985909019514" y="-3.33700794158176E-4" />
+      <point x="118.808" y="662.906" />
+      <point x="118.808" y="361.0" />
+      <point x="339.003" y="361.0" />
+      <point x="339.003" y="-286.345" />
+      <point x="-158.49979792768897" y="-15.00043345873803" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.AdminController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="161.00023356437396" y="-1.3799550379189895E-4" />
+      <point x="733.0" y="1109.437" />
+      <point x="733.0" y="267.5" />
+      <point x="693.0" y="267.5" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.MorguePController" target="com.example.hms1.Controllers.ERPController" relationship="GENERALIZATION">
+      <point x="-3.6070571212576397E-4" y="-56.499940428822654" />
+      <point x="234.808" y="361.0" />
+      <point x="339.003" y="361.0" />
+      <point x="339.003" y="-286.345" />
+      <point x="-158.49979792768897" y="-15.00043345873803" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.ICController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="-171.5002702570365" y="8.893558418776593E-5" />
+      <point x="733.0" y="649.865" />
+      <point x="733.0" y="267.5" />
+      <point x="693.0" y="267.5" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.MedicLoginController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="117.00018835031631" y="-3.6320635274478263E-4" />
+      <point x="693.0" y="545.054" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.ERPController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="-158.49979792768897" y="-4.3345873802991264E-4" />
+      <point x="693.0" y="-271.345" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+    <edge source="com.example.hms1.Patients.patients" target="com.example.hms1.Patients.names" relationship="GENERALIZATION">
+      <point x="-18.918548376359922" y="-105.5" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.MorgueController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="148.00027277104192" y="3.271834293627762E-5" />
+      <point x="693.0" y="30.688999999999965" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+    <edge source="com.example.hms1.Patients.patientsIC" target="com.example.hms1.Patients.patients" relationship="GENERALIZATION">
+      <point x="-28.449830812106256" y="-69.5" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.ERController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="-161.5003170972508" y="-4.939600021316437E-4" />
+      <point x="733.0" y="1603.294" />
+      <point x="733.0" y="267.5" />
+      <point x="693.0" y="267.5" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.HelloController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="-103.4996692370164" y="4.472012288943006E-4" />
+      <point x="1135.0" y="916.763" />
+      <point x="1135.0" y="286.865" />
+      <point x="733.0" y="286.865" />
+      <point x="733.0" y="267.5" />
+      <point x="693.0" y="267.5" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+    <edge source="com.example.hms1.Controllers.MedicPageController" target="com.example.hms1.utils.SceneController" relationship="GENERALIZATION">
+      <point x="-106.4996052252427" y="5.388299797459695E-6" />
+      <point x="1135.0" y="469.267" />
+      <point x="1135.0" y="286.865" />
+      <point x="733.0" y="286.865" />
+      <point x="733.0" y="267.5" />
+      <point x="693.0" y="267.5" />
+      <point x="693.0" y="187.79500000000002" />
+      <point x="-145.0001876956967" y="-4.3534782268750405E-4" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.3399711614956247" showDependencies="false" x="1175.0739466179161" y="527.1871297989027" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
