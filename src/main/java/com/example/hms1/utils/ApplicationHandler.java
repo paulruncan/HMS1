@@ -25,6 +25,7 @@ public class ApplicationHandler {
         this.stage = stage;
         this.stage.setTitle(Environment.APP_TITLE);
         this.stage.setFullScreen(Environment.IS_FULLSCREEN);
+        this.stage.setResizable(false);
         this.stage.setScene(new Scene(this.views.get(SCENE_IDENTIFIER.HELLO), 600, 400));
         this.stage.show();
 
