@@ -1,25 +1,10 @@
 package com.example.hms1.Controllers;
 
-import com.example.hms1.Patients.names;
-import com.example.hms1.utils.SceneController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import com.example.hms1.Patients.Names;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ResourceBundle;
-
-public class ICPController extends ERPController {
+public class IntensiveCarePublicController extends EmergencyRoomPublicController {
 
     @FXML
     private TextField daysText;
@@ -34,7 +19,7 @@ public class ICPController extends ERPController {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                PatientList.add(new names(resultSet.getInt("id"), resultSet.getString("name")));
+                PatientList.add(new Names(resultSet.getInt("id"), resultSet.getString("name")));
                 patientsTable.setItems(PatientList);
             }
         } catch (Exception e) {
@@ -52,7 +37,7 @@ public class ICPController extends ERPController {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 if (namev1.equals(resultSet.getString("name")))
-                    PatientList.add(new names(resultSet.getInt("id"), resultSet.getString("name")));
+                    PatientList.add(new Names(resultSet.getInt("id"), resultSet.getString("name")));
                 patientsTable.setItems(PatientList);
             }
             textNume.setText("Nume: " + namev1);

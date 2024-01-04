@@ -1,7 +1,7 @@
 package com.example.hms1.Controllers;
 
+import com.example.hms1.Patients.Patients;
 import com.example.hms1.database;
-import com.example.hms1.Patients.patients;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
 import javafx.collections.FXCollections;
@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class ERController extends SceneController implements Initializable {
+public class EmergencyRoomController extends SceneController implements Initializable {
     @FXML
     private TextField txtName;
     @FXML
@@ -32,25 +32,25 @@ public class ERController extends SceneController implements Initializable {
     @FXML
     private TextField txtId;
     @FXML
-    private TableView<patients> patientsTable;
+    private TableView<Patients> patientsTable;
     @FXML
-    private TableColumn<patients, String> nameCol;
+    private TableColumn<Patients, String> nameCol;
 
     @FXML
-    private TableColumn<patients, String> medicineCol;
+    private TableColumn<Patients, String> medicineCol;
     @FXML
-    private TableColumn<patients, Integer> priceCol;
+    private TableColumn<Patients, Integer> priceCol;
     @FXML
-    private TableColumn<patients, Integer> idCol;
+    private TableColumn<Patients, Integer> idCol;
 
-    ObservableList<patients> PatientList = FXCollections.observableArrayList();
+    ObservableList<Patients> PatientList = FXCollections.observableArrayList();
     int index = -1;
     String query = null;
     Connection connection = null;
     ResultSet resultSet = null;
     PreparedStatement preparedStatement = null;
 
-    //patients patient = null;
+    //Patients patient = null;
     @FXML
     public void goBack() {
         this.changeScene(SCENE_IDENTIFIER.MEDICPAGE);
@@ -83,7 +83,7 @@ public class ERController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                PatientList.add(new patients(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"), resultSet.getInt("id")));
+                PatientList.add(new Patients(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"), resultSet.getInt("id")));
                 patientsTable.setItems(PatientList);
             }
         } catch (Exception e) {

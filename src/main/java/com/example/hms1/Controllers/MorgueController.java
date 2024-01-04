@@ -1,8 +1,6 @@
 package com.example.hms1.Controllers;
 
-import com.example.hms1.Patients.bodies;
-import com.example.hms1.Patients.patients;
-import com.example.hms1.Patients.patientsIC;
+import com.example.hms1.Patients.Bodies;
 import com.example.hms1.database;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
@@ -31,16 +29,16 @@ public class MorgueController extends SceneController implements Initializable {
     @FXML
     private TextField txtOrgan;
     @FXML
-    private TableView<bodies> bodiesTable;
+    private TableView<Bodies> bodiesTable;
     @FXML
-    private TableColumn<bodies, String> nameCol;
+    private TableColumn<Bodies, String> nameCol;
     @FXML
-    private TableColumn<bodies, String> organCol;
+    private TableColumn<Bodies, String> organCol;
     @FXML
-    private TableColumn<bodies, Integer> idCol;
+    private TableColumn<Bodies, Integer> idCol;
 
 
-    ObservableList<bodies> bodiesList = FXCollections.observableArrayList();
+    ObservableList<Bodies> bodiesList = FXCollections.observableArrayList();
     int index = -1;
     String query = null;
     Connection connection = null;
@@ -70,7 +68,7 @@ public class MorgueController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                bodiesList.add(new bodies(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("organ")));
+                bodiesList.add(new Bodies(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("organ")));
                 bodiesTable.setItems(bodiesList);
             }
         } catch (Exception e) {
@@ -146,7 +144,7 @@ public class MorgueController extends SceneController implements Initializable {
             System.out.println("1");
             while (resultSet.next()) {
                 if (organv1.equals(resultSet.getString("organ")) || namev1.equals(resultSet.getString("name")))
-                    bodiesList.add(new bodies(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("organ")));
+                    bodiesList.add(new Bodies(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("organ")));
                 bodiesTable.setItems(bodiesList);
             }
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package com.example.hms1.Patients;
 
-public class patients extends names{
+public class Patients extends Names {
 
    private String medicine;
    private int price;
@@ -22,7 +22,7 @@ public class patients extends names{
         this.price = price;
     }
 
-    public patients( String name, String medicine, int price, int id ) {
+    public Patients( String name, String medicine, int price, int id ) {
         super(id,name);
         this.medicine = medicine;
         this.price = price;

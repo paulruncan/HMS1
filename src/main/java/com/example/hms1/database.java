@@ -1,6 +1,6 @@
 package com.example.hms1;
 
-import com.example.hms1.Patients.patients;
+import com.example.hms1.Patients.Patients;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -25,14 +25,14 @@ public class database {
         //   return databaseLink;
     }
 
-    public static ObservableList<patients> getDataPatients() {
+    public static ObservableList<Patients> getDataPatients() {
         Connection conn = getConnection();
-        ObservableList<patients> list = FXCollections.observableArrayList();
+        ObservableList<Patients> list = FXCollections.observableArrayList();
         try {
             PreparedStatement ps = conn.prepareStatement("select * from patients");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new patients(rs.getString("name"), rs.getString("medicine"), Integer.parseInt(rs.getString("price")), Integer.parseInt(rs.getString("id"))));
+                list.add(new Patients(rs.getString("name"), rs.getString("medicine"), Integer.parseInt(rs.getString("price")), Integer.parseInt(rs.getString("id"))));
 
             }
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package com.example.hms1.Patients;
 
-public class patientsIC extends patients {
+public class PatientsIntensiveCare extends Patients {
     private int prospect;
 
     public int getProspect() {
@@ -11,7 +11,7 @@ public class patientsIC extends patients {
         this.prospect = prospect;
     }
 
-    public patientsIC( String name, String medicine, int price, int prospect,int id ) {
+    public PatientsIntensiveCare( String name, String medicine, int price, int prospect, int id ) {
         super(name, medicine, price,id);
         this.prospect=prospect;
     }

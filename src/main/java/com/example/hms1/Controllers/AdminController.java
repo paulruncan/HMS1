@@ -1,7 +1,6 @@
 package com.example.hms1.Controllers;
 
-import com.example.hms1.Patients.bodies;
-import com.example.hms1.Patients.medics;
+import com.example.hms1.Patients.Medics;
 import com.example.hms1.database;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
@@ -30,16 +29,16 @@ public class AdminController extends SceneController implements Initializable {
     @FXML
     private TextField txtPassword;
     @FXML
-    private TableView<medics> medicsTable;
+    private TableView<Medics> medicsTable;
     @FXML
-    private TableColumn<medics, String> usernameCol;
+    private TableColumn<Medics, String> usernameCol;
     @FXML
-    private TableColumn<medics, String> passwordCol;
+    private TableColumn<Medics, String> passwordCol;
     @FXML
-    private TableColumn<medics, Integer> idCol;
+    private TableColumn<Medics, Integer> idCol;
 
 
-    ObservableList<medics> medicsList = FXCollections.observableArrayList();
+    ObservableList<Medics> medicsList = FXCollections.observableArrayList();
     int index = -1;
     String query = null;
     Connection connection = null;
@@ -126,7 +125,7 @@ public class AdminController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                medicsList.add(new medics(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("passwords")));
+                medicsList.add(new Medics(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("passwords")));
                 medicsTable.setItems(medicsList);
             }
         } catch (Exception e) {

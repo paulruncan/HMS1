@@ -1,11 +1,11 @@
 package com.example.hms1.Patients;
 
-public class medics {
+public class Medics {
     private int id;
     private String username;
     private String password;
 
-    public medics( int id, String username, String password ) {
+    public Medics( int id, String username, String password ) {
         this.id = id;
         this.username = username;
         this.password = password;

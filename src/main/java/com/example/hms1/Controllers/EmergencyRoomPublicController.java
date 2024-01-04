@@ -1,13 +1,11 @@
 package com.example.hms1.Controllers;
 
-import com.example.hms1.Patients.names;
+import com.example.hms1.Patients.Names;
 import com.example.hms1.database;
-import com.example.hms1.Patients.patients;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 //import javafx.scene.control.PasswordField;
@@ -24,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class ERPController extends SceneController implements Initializable {
+public class EmergencyRoomPublicController extends SceneController implements Initializable {
     @FXML
     protected Text textNume;
     @FXML
@@ -34,19 +32,19 @@ public class ERPController extends SceneController implements Initializable {
     @FXML
     protected TextField txtId;
     @FXML
-    protected TableView<names> patientsTable;
+    protected TableView<Names> patientsTable;
     @FXML
-    private TableColumn<names, String> nameCol;
+    private TableColumn<Names, String> nameCol;
     @FXML
-    private TableColumn<names, Integer> idCol;
+    private TableColumn<Names, Integer> idCol;
 
-    ObservableList<names> PatientList = FXCollections.observableArrayList();
+    ObservableList<Names> PatientList = FXCollections.observableArrayList();
     int index = -1;
     String query = null;
     Connection connection = null;
     ResultSet resultSet = null;
     PreparedStatement preparedStatement = null;
-    //patients patient = null;
+    //Patients patient = null;
 
 
     public Text getTextNume() {
@@ -57,7 +55,7 @@ public class ERPController extends SceneController implements Initializable {
         return txtName;
     }
 
-    public void setPatientsTable( TableView<names> patientsTable ) {
+    public void setPatientsTable( TableView<Names> patientsTable ) {
         this.patientsTable = patientsTable;
     }
 
@@ -76,7 +74,7 @@ public class ERPController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                PatientList.add(new names(resultSet.getInt("id"), resultSet.getString("name")));
+                PatientList.add(new Names(resultSet.getInt("id"), resultSet.getString("name")));
                 patientsTable.setItems(PatientList);
             }
         } catch (Exception e) {
@@ -133,7 +131,7 @@ public class ERPController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 if (namev1.equals(resultSet.getString("name")))
-                    PatientList.add(new names(resultSet.getInt("id"), resultSet.getString("name")));
+                    PatientList.add(new Names(resultSet.getInt("id"), resultSet.getString("name")));
                 patientsTable.setItems(PatientList);
             }
             textNume.setText("Nume: " + namev1);

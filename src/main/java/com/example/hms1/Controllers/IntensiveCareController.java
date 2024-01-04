@@ -1,7 +1,6 @@
 package com.example.hms1.Controllers;
 
-import com.example.hms1.Patients.patients;
-import com.example.hms1.Patients.patientsIC;
+import com.example.hms1.Patients.PatientsIntensiveCare;
 import com.example.hms1.database;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
@@ -23,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class ICController extends SceneController implements Initializable {
+public class IntensiveCareController extends SceneController implements Initializable {
 
     @FXML
     private TextField txtName;
@@ -39,20 +38,20 @@ public class ICController extends SceneController implements Initializable {
     private TextField txtId;
 
     @FXML
-    private TableView<patientsIC> patientsICTable;
+    private TableView<PatientsIntensiveCare> patientsICTable;
     @FXML
-    private TableColumn<patientsIC, String> nameCol;
+    private TableColumn<PatientsIntensiveCare, String> nameCol;
 
     @FXML
-    private TableColumn<patientsIC, String> medicineCol;
+    private TableColumn<PatientsIntensiveCare, String> medicineCol;
     @FXML
-    private TableColumn<patientsIC, Integer> priceCol;
+    private TableColumn<PatientsIntensiveCare, Integer> priceCol;
     @FXML
-    private TableColumn<patientsIC, Integer> prospectCol;
+    private TableColumn<PatientsIntensiveCare, Integer> prospectCol;
     @FXML
-    private TableColumn<patientsIC, Integer> idCol;
+    private TableColumn<PatientsIntensiveCare, Integer> idCol;
 
-    ObservableList<patientsIC> PatientICList = FXCollections.observableArrayList();
+    ObservableList<PatientsIntensiveCare> PatientICList = FXCollections.observableArrayList();
     int index = -1;
     String query = null;
     Connection connection = null;
@@ -92,7 +91,7 @@ public class ICController extends SceneController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             System.out.println("1");
             while (resultSet.next()) {
-                PatientICList.add(new patientsIC(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"), resultSet.getInt("prospect"), resultSet.getInt("id")));
+                PatientICList.add(new PatientsIntensiveCare(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"), resultSet.getInt("prospect"), resultSet.getInt("id")));
                 patientsICTable.setItems(PatientICList);
             }
         } catch (Exception e) {

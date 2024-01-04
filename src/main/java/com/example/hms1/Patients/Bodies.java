@@ -1,12 +1,14 @@
 package com.example.hms1.Patients;
 
-public class names {
+public class Bodies {
     private int id;
     private String name;
+    private String organ;
 
-    public names( int id, String name ) {
+    public Bodies( int id, String name, String tsd ) {
         this.id = id;
         this.name = name;
+        this.organ = tsd;
     }
 
     public int getId() {
@@ -23,5 +25,13 @@ public class names {
 
     public void setName( String name ) {
         this.name = name;
+    }
+
+    public String getOrgan() {
+        return organ;
+    }
+
+    public void setOrgan( String organ ) {
+        this.organ = organ;
     }
 }
