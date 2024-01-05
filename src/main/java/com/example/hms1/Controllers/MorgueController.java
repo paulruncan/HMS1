@@ -47,46 +47,20 @@ public class MorgueController extends SceneController implements Initializable {
 
     public void onAdd( ActionEvent actionEvent ) {
         connection = database.getConnection();
-        String sql = "insert into morgue(name,organ) values(?,?)";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, txtName.getText());
-            preparedStatement.setString(2, txtOrgan.getText());
-            preparedStatement.execute();
-            onUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.addMorgue(preparedStatement,connection,txtName,txtOrgan);
+        onUpdate();
     }
 
     public void onUpdate() {
         System.out.println("da");
         bodiesList.clear();
-        query = "select * from morgue";
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            System.out.println("1");
-            while (resultSet.next()) {
-                bodiesList.add(new Bodies(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("organ")));
-                bodiesTable.setItems(bodiesList);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.updateMorgue(query,preparedStatement,connection,resultSet,bodiesList,bodiesTable);
     }
 
     public void onRemove( ActionEvent actionEvent ) {
         connection = database.getConnection();
-        String sql = "delete from morgue where id = ?";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, Integer.parseInt(txtId.getText()));
-            preparedStatement.execute();
-            onUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.removeMorgue(preparedStatement,connection,txtId);
+        onUpdate();
     }
 
     public void goBack( ActionEvent actionEvent ) {
@@ -96,13 +70,7 @@ public class MorgueController extends SceneController implements Initializable {
     public void onEdit( ActionEvent actionEvent ) {
         try {
             connection = database.getConnection();
-            String value1 = txtName.getText();
-            String value2 = txtId.getText();
-            Integer intId = Integer.parseInt(value2);
-            String value3 = txtOrgan.getText();
-            String sql = "update morgue set organ = '" + value3 + "',name = '" + value1 + "' where id =" + intId;
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.execute();
+            database.editMorgue(preparedStatement,connection,txtName,txtId,txtOrgan);
             onUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,18 +105,6 @@ public class MorgueController extends SceneController implements Initializable {
         String namev1 = txtName.getText();
         System.out.println("da");
         bodiesList.clear();
-        query = "select * from morgue";
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            System.out.println("1");
-            while (resultSet.next()) {
-                if (organv1.equals(resultSet.getString("organ")) || namev1.equals(resultSet.getString("name")))
-                    bodiesList.add(new Bodies(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("organ")));
-                bodiesTable.setItems(bodiesList);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.checkMorgue(query,preparedStatement,connection,resultSet,namev1,organv1,bodiesList,bodiesTable);
     }
 }

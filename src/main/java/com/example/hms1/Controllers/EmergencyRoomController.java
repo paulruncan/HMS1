@@ -59,36 +59,15 @@ public class EmergencyRoomController extends SceneController implements Initiali
     @FXML
     public void onAdd() {
         connection = database.getConnection();
-        String sql = "insert into patients(name,medicine,price) values(?,?,?)";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, txtName.getText());
-            preparedStatement.setString(2, txtMedicine.getText());
-            Integer valuePrice = Integer.parseInt(txtPrice.getText());
-            preparedStatement.setInt(3, valuePrice);
-            preparedStatement.execute();
-            onUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.addER(connection,txtName,txtMedicine,txtPrice);
+        onUpdate();
     }
 
     @FXML
     public void onUpdate() {
         System.out.println("da");
         PatientList.clear();
-        query = "select * from patients";
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            System.out.println("1");
-            while (resultSet.next()) {
-                PatientList.add(new Patients(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"), resultSet.getInt("id")));
-                patientsTable.setItems(PatientList);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.updateER(query,preparedStatement,connection,resultSet,PatientList,patientsTable);
     }
 
     @Override
@@ -109,15 +88,7 @@ public class EmergencyRoomController extends SceneController implements Initiali
     public void onEdit() {
         try {
             connection = database.getConnection();
-            String value1 = txtName.getText();
-            String value2 = txtMedicine.getText();
-            String value3 = txtPrice.getText();
-            Integer intVal = Integer.parseInt(value3);
-            String value4 = txtId.getText();
-            Integer intProspect = Integer.parseInt(value4);
-            String sql = "update patients set medicine = '" + value2 + "',price=" + value3 + ",name = '" + value1 + "' where id =" + intProspect;
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.execute();
+            database.editER(connection, txtName, txtMedicine, txtPrice, txtId, preparedStatement);
             onUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,14 +109,7 @@ public class EmergencyRoomController extends SceneController implements Initiali
 
     public void onRemove( ActionEvent actionEvent ) {
         connection = database.getConnection();
-        String sql = "delete from patients where id = ?";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, Integer.parseInt(txtId.getText()));
-            preparedStatement.execute();
-            onUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.removeER(preparedStatement,connection,txtId);
+        onUpdate();
     }
 }

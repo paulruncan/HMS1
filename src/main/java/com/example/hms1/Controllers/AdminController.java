@@ -71,17 +71,11 @@ public class AdminController extends SceneController implements Initializable {
     public void onEdit( ActionEvent actionEvent ) {
         try {
             connection = database.getConnection();
-            String value1 = txtUsername.getText();
-            String value2 = txtId.getText();
-            Integer intId = Integer.parseInt(value2);
-            String value3 = txtPassword.getText();
-            String sql = "update accounts set passwords = '" + value3 + "',username = '" + value1 + "' where id =" + intId;
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.execute();
-            onUpdate();
+            database.editAdmin(preparedStatement,connection,txtUsername,txtId,txtPassword);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        onUpdate();
     }
 
     public void goBack( ActionEvent actionEvent ) {
@@ -90,46 +84,21 @@ public class AdminController extends SceneController implements Initializable {
 
     public void onRemove( ActionEvent actionEvent ) {
         connection = database.getConnection();
-        String sql = "delete from accounts where id = ?";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, Integer.parseInt(txtId.getText()));
-            preparedStatement.execute();
-            onUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.removeAdmin(preparedStatement,connection,txtId);
+        onUpdate();
     }
 
     public void onAdd( ActionEvent actionEvent ) {
 
         connection = database.getConnection();
         String sql = "insert into accounts(username,passwords) values(?,?)";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, txtUsername.getText());
-            preparedStatement.setString(2, txtPassword.getText());
-            preparedStatement.execute();
-            onUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.addAdmin(preparedStatement,connection,txtUsername,txtPassword);
+        onUpdate();
     }
 
     public void onUpdate() {
         System.out.println("da");
         medicsList.clear();
-        query = "select * from accounts";
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            System.out.println("1");
-            while (resultSet.next()) {
-                medicsList.add(new Medics(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("passwords")));
-                medicsTable.setItems(medicsList);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.updateAdmin(query,preparedStatement,connection,resultSet,medicsList,medicsTable);
     }
 }

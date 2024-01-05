@@ -62,22 +62,8 @@ public class IntensiveCareController extends SceneController implements Initiali
     @FXML
     protected void onAdd() {
         connection = database.getConnection();
-        String sql = "insert into patientsIC(name,medicine,price,prospect) values(?,?,?,?)";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, txtName.getText());
-            preparedStatement.setString(2, txtMedicine.getText());
-            Integer valuePrice = Integer.parseInt(txtPrice.getText());
-            Integer valueProspect = Integer.parseInt(txtProspect.getText());
-            preparedStatement.setInt(3, valuePrice);
-            preparedStatement.setInt(4, valueProspect);
-            if (valueProspect == 1 || valueProspect == 101 || valueProspect == 111)
-                preparedStatement.execute();
-            else txt.setText("Invalid Prospect");
-            onUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.addIC(preparedStatement,connection,txtName,txtMedicine,txtPrice,txtProspect,txt);
+        onUpdate();
     }
 
     ;
@@ -85,31 +71,13 @@ public class IntensiveCareController extends SceneController implements Initiali
     public void onUpdate() {
         System.out.println("da");
         PatientICList.clear();
-        query = "select * from patientsic";
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            System.out.println("1");
-            while (resultSet.next()) {
-                PatientICList.add(new PatientsIntensiveCare(resultSet.getString("name"), resultSet.getString("medicine"), resultSet.getInt("price"), resultSet.getInt("prospect"), resultSet.getInt("id")));
-                patientsICTable.setItems(PatientICList);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.updateIC(query,preparedStatement,connection,resultSet,PatientICList,patientsICTable);
     }
 
     public void onRemove( ActionEvent actionEvent ) {
         connection = database.getConnection();
-        String sql = "delete from patientsIC where id = ?";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, Integer.parseInt(txtId.getText()));
-            preparedStatement.execute();
-            onUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.removeIC(preparedStatement, connection, txtId);
+        onUpdate();
     }
 
     public void goBack( ActionEvent actionEvent ) {
@@ -120,23 +88,10 @@ public class IntensiveCareController extends SceneController implements Initiali
     public void onEdit( ActionEvent actionEvent ) {
         try {
             connection = database.getConnection();
-            String value1 = txtName.getText();
-            String value2 = txtMedicine.getText();
-            String value3 = txtPrice.getText();
-            Integer intVal = Integer.parseInt(value3);
-            String value4 = txtProspect.getText();
-            Integer intProspect = Integer.parseInt(value4);
-            String value5 = txtId.getText();
-            Integer intId = Integer.parseInt(value5);
-            String sql = "update patientsIC set medicine = '" + value2 + "',price=" + value3 + ",prospect=" + value4 + ", name = '" + value1 + "' where id =" + intId;
-            preparedStatement = connection.prepareStatement(sql);
-            if (intProspect == 1 || intProspect == 101 || intProspect == 111)
-                preparedStatement.execute();
-            else txt.setText("invalid prospect(edit)");
-            onUpdate();
+            database.editIC(preparedStatement,connection,txt,txtName,txtMedicine,txtPrice,txtProspect,txtId);
         } catch (Exception e) {
-            e.printStackTrace();
         }
+        onUpdate();
     }
 
     @FXML

@@ -68,18 +68,8 @@ public class EmergencyRoomPublicController extends SceneController implements In
     public void onUpdate() {
         System.out.println("da");
         PatientList.clear();
-        query = "select * from patients";
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            System.out.println("1");
-            while (resultSet.next()) {
-                PatientList.add(new Names(resultSet.getInt("id"), resultSet.getString("name")));
-                patientsTable.setItems(PatientList);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        database.updatePublicER(query,preparedStatement,connection,resultSet,PatientList,patientsTable);
+
     }
 
     @Override
@@ -107,37 +97,26 @@ public class EmergencyRoomPublicController extends SceneController implements In
     public void onCheckPrice() {
         String namev1 = txtName.getText();
         int price = 0;
-        query = "select * from patients";
         try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                if (namev1.equals(resultSet.getString("name")))
-                    price += resultSet.getInt("price");
-            }
+            int price1 = database.checkPricePublicER(query, preparedStatement, connection, resultSet, price, namev1);
             textNume.setText("Nume: " + namev1);
-            textPrice.setText("Price: " + price);
+            textPrice.setText("Price: " + price1);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
     public void onCheck() {
         String namev1 = txtName.getText();
         PatientList.clear();
-        query = "select * from patients";
         try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                if (namev1.equals(resultSet.getString("name")))
-                    PatientList.add(new Names(resultSet.getInt("id"), resultSet.getString("name")));
-                patientsTable.setItems(PatientList);
-            }
+            database.checkPublicER(query,preparedStatement,connection,resultSet,namev1,PatientList,patientsTable);
             textNume.setText("Nume: " + namev1);
             textPrice.setText("Price:");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e){
+
         }
     }
 }
