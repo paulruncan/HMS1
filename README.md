@@ -5,6 +5,8 @@
 
  <h4>**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Emergency Room:**</h4>
  
+![ERP.png](src%2Fmain%2Ffoto%2FERP.png)
+    
     1.Text Fields
         -Id Field: Has no use for the user; (*)
         -Name Field: The user can use the name field to search for a patient
@@ -20,6 +22,7 @@
         -Go Back Button: takes you back to the previous page.
     
  <h4>**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Intensive Care Room:**</h4>
+    ![ICP.png](src%2Fmain%2Ffoto%2FICP.png)
     
     1. Text Fields:
         -Id Field: (*);
@@ -37,6 +40,7 @@
         -Go Back Button: takes you back to the previous page.
 
 <h4>**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Morgue:**</h4>
+    ![MorgueP.png](src%2Fmain%2Ffoto%2FMorgueP.png)
     
     1. Text Fields:
         -Id Field: (*);
@@ -58,7 +62,9 @@
     you'll be directed to the medic page if your account is correct
 
 <h4>**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Emergency Room:**</h4>
-
+    
+![ER.png](src%2Fmain%2Ffoto%2FER.png)
+    
     1.Text Fields
         -Id Field: based on the ID field we use the edit/remove functions
         -Name Field: The doctor can use the name field to add/edit data for a patient
@@ -73,7 +79,9 @@
         -Go Back Button: takes you back to the previous page.
 
 <h4>**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Intensive Care Room:**</h4>
-
+    
+![IC.png](src%2Fmain%2Ffoto%2FIC.png)
+    
     1.Text Fields
         -Id Field: based on the ID field we use the edit/remove functions
         -Name Field: The doctor can use the name field to add/edit data for a patient
@@ -92,6 +100,8 @@
 
 <h4>**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Morgue:**</h4>
 
+![Morgue.png](src%2Fmain%2Ffoto%2FMorgue.png)
+    
     1.Text Fields
         -Id Field: based on the ID field we use the edit/remove functions
         -Name Field: The doctor can use the name field to add/edit data for a patient
@@ -118,15 +128,15 @@
 ## Diagram
 ![diagrama.png](src%2Fmain%2Ffoto%2Fdiagrama.png)
 
-# Controllers
+### Controllers
 ![diagram2.png](src%2Fmain%2Ffoto%2Fdiagram2.png)
 
-# Utils
+### Utils
 ![utils.png](src%2Fmain%2Ffoto%2Futils.png)
 
-# Classes
+### Classes
 ![Classes.png](src%2Fmain%2Ffoto%2FClasses.png)
 
-# Database
+### Database
 ![database.png](src%2Fmain%2Ffoto%2Fdatabase.png)
 #### Thanks for choosing HMS
