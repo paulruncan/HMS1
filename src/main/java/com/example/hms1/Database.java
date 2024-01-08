@@ -19,7 +19,7 @@ public class Database {
     public static Connection getConnection() {
         String url = "jdbc:postgresql://localhost:5432/hospital";
         String username = "postgres";
-        String password = "cenago11";
+        String password = "";
 
         try {
             Connection databaseLink = DriverManager.getConnection(url, username, password);
