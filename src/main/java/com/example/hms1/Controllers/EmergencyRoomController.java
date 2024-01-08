@@ -1,7 +1,7 @@
 package com.example.hms1.Controllers;
 
 import com.example.hms1.Patients.Patients;
-import com.example.hms1.database;
+import com.example.hms1.Database;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
 import javafx.collections.FXCollections;
@@ -46,7 +46,6 @@ public class EmergencyRoomController extends SceneController implements Initiali
     ObservableList<Patients> PatientList = FXCollections.observableArrayList();
     int index = -1;
     String query = null;
-    Connection connection = null;
     ResultSet resultSet = null;
     PreparedStatement preparedStatement = null;
 
@@ -58,8 +57,7 @@ public class EmergencyRoomController extends SceneController implements Initiali
 
     @FXML
     public void onAdd() {
-        connection = database.getConnection();
-        database.addER(connection,txtName,txtMedicine,txtPrice);
+        Database.addER(txtName,txtMedicine,txtPrice);
         onUpdate();
     }
 
@@ -67,28 +65,19 @@ public class EmergencyRoomController extends SceneController implements Initiali
     public void onUpdate() {
         System.out.println("da");
         PatientList.clear();
-        database.updateER(query,preparedStatement,connection,resultSet,PatientList,patientsTable);
+        Database.updateER(query,preparedStatement,resultSet,PatientList,patientsTable);
     }
 
     @Override
     public void initialize( URL url, ResourceBundle resourceBundle ) {
-        loadDate();
-    }
-
-    public void loadDate() {
-        connection = database.getConnection();
+        Database.loadDateER(nameCol,medicineCol,priceCol,idCol);
         onUpdate();
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        medicineCol.setCellValueFactory(new PropertyValueFactory<>("medicine"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     }
 
     @FXML
     public void onEdit() {
         try {
-            connection = database.getConnection();
-            database.editER(connection, txtName, txtMedicine, txtPrice, txtId, preparedStatement);
+            Database.editER(txtName, txtMedicine, txtPrice, txtId, preparedStatement);
             onUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,8 +97,8 @@ public class EmergencyRoomController extends SceneController implements Initiali
     }
 
     public void onRemove( ActionEvent actionEvent ) {
-        connection = database.getConnection();
-        database.removeER(preparedStatement,connection,txtId);
+
+        Database.removeER(preparedStatement,txtId);
         onUpdate();
     }
 }

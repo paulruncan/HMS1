@@ -1,7 +1,7 @@
 package com.example.hms1.Controllers;
 
 import com.example.hms1.Patients.Medics;
-import com.example.hms1.database;
+import com.example.hms1.Database;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
 import javafx.collections.FXCollections;
@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -41,21 +42,13 @@ public class AdminController extends SceneController implements Initializable {
     ObservableList<Medics> medicsList = FXCollections.observableArrayList();
     int index = -1;
     String query = null;
-    Connection connection = null;
     ResultSet resultSet = null;
     PreparedStatement preparedStatement = null;
 
     @Override
     public void initialize( URL url, ResourceBundle resourceBundle ) {
-        loadData();
-    }
-
-    private void loadData() {
-        connection = database.getConnection();
+        Database.loadDataAdmin(usernameCol,passwordCol,idCol);
         onUpdate();
-        usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
-        passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     }
 
     public void getSelected( MouseEvent mouseEvent ) {
@@ -70,8 +63,7 @@ public class AdminController extends SceneController implements Initializable {
 
     public void onEdit( ActionEvent actionEvent ) {
         try {
-            connection = database.getConnection();
-            database.editAdmin(preparedStatement,connection,txtUsername,txtId,txtPassword);
+            Database.editAdmin(preparedStatement,txtUsername,txtId,txtPassword);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,22 +75,18 @@ public class AdminController extends SceneController implements Initializable {
     }
 
     public void onRemove( ActionEvent actionEvent ) {
-        connection = database.getConnection();
-        database.removeAdmin(preparedStatement,connection,txtId);
+        Database.removeAdmin(preparedStatement,txtId);
         onUpdate();
     }
 
     public void onAdd( ActionEvent actionEvent ) {
-
-        connection = database.getConnection();
-        String sql = "insert into accounts(username,passwords) values(?,?)";
-        database.addAdmin(preparedStatement,connection,txtUsername,txtPassword);
+        Database.addAdmin(preparedStatement,txtUsername,txtPassword);
         onUpdate();
     }
 
     public void onUpdate() {
         System.out.println("da");
         medicsList.clear();
-        database.updateAdmin(query,preparedStatement,connection,resultSet,medicsList,medicsTable);
+        Database.updateAdmin(query,preparedStatement,resultSet,medicsList,medicsTable);
     }
 }

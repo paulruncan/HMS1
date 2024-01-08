@@ -1,7 +1,6 @@
 package com.example.hms1.Controllers;
 
-import com.example.hms1.Patients.Names;
-import com.example.hms1.database;
+import com.example.hms1.Database;
 
 public class MorguePController extends EmergencyRoomPublicController {
 
@@ -9,14 +8,14 @@ public class MorguePController extends EmergencyRoomPublicController {
     public void onCheck() {
         String namev1 = txtName.getText();
         PatientList.clear();
-        database.checkMorguePublic(query,preparedStatement,connection,resultSet,namev1,PatientList,patientsTable);
+        Database.checkMorguePublic(query,preparedStatement,resultSet,namev1,PatientList,patientsTable);
     }
 
     @Override
     public void onUpdate() {
         System.out.println("da");
         PatientList.clear();
-        database.updateMorguePublic(query,preparedStatement,connection,resultSet,PatientList,patientsTable);
+        Database.updateMorguePublic(query,preparedStatement,resultSet,PatientList,patientsTable);
     }
 }
 

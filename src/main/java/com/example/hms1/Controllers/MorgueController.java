@@ -1,7 +1,7 @@
 package com.example.hms1.Controllers;
 
 import com.example.hms1.Patients.Bodies;
-import com.example.hms1.database;
+import com.example.hms1.Database;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
 import javafx.collections.FXCollections;
@@ -46,20 +46,18 @@ public class MorgueController extends SceneController implements Initializable {
     PreparedStatement preparedStatement = null;
 
     public void onAdd( ActionEvent actionEvent ) {
-        connection = database.getConnection();
-        database.addMorgue(preparedStatement,connection,txtName,txtOrgan);
+        Database.addMorgue(preparedStatement,txtName,txtOrgan);
         onUpdate();
     }
 
     public void onUpdate() {
         System.out.println("da");
         bodiesList.clear();
-        database.updateMorgue(query,preparedStatement,connection,resultSet,bodiesList,bodiesTable);
+        Database.updateMorgue(query,preparedStatement,resultSet,bodiesList,bodiesTable);
     }
 
     public void onRemove( ActionEvent actionEvent ) {
-        connection = database.getConnection();
-        database.removeMorgue(preparedStatement,connection,txtId);
+        Database.removeMorgue(preparedStatement,txtId);
         onUpdate();
     }
 
@@ -69,8 +67,7 @@ public class MorgueController extends SceneController implements Initializable {
 
     public void onEdit( ActionEvent actionEvent ) {
         try {
-            connection = database.getConnection();
-            database.editMorgue(preparedStatement,connection,txtName,txtId,txtOrgan);
+            Database.editMorgue(preparedStatement,txtName,txtId,txtOrgan);
             onUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,15 +86,8 @@ public class MorgueController extends SceneController implements Initializable {
 
     @Override
     public void initialize( URL url, ResourceBundle resourceBundle ) {
-        loadData();
-    }
-
-    private void loadData() {
-        connection = database.getConnection();
+        Database.loadDataMorgue(nameCol,organCol,idCol);
         onUpdate();
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        organCol.setCellValueFactory(new PropertyValueFactory<>("organ"));
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     }
 
     public void onCheck() {
@@ -105,6 +95,6 @@ public class MorgueController extends SceneController implements Initializable {
         String namev1 = txtName.getText();
         System.out.println("da");
         bodiesList.clear();
-        database.checkMorgue(query,preparedStatement,connection,resultSet,namev1,organv1,bodiesList,bodiesTable);
+        Database.checkMorgue(query,preparedStatement,resultSet,namev1,organv1,bodiesList,bodiesTable);
     }
 }

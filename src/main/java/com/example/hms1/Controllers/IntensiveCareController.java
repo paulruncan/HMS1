@@ -1,7 +1,7 @@
 package com.example.hms1.Controllers;
 
 import com.example.hms1.Patients.PatientsIntensiveCare;
-import com.example.hms1.database;
+import com.example.hms1.Database;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
 import javafx.collections.FXCollections;
@@ -54,15 +54,13 @@ public class IntensiveCareController extends SceneController implements Initiali
     ObservableList<PatientsIntensiveCare> PatientICList = FXCollections.observableArrayList();
     int index = -1;
     String query = null;
-    Connection connection = null;
     ResultSet resultSet = null;
     PreparedStatement preparedStatement = null;
 
 
     @FXML
     protected void onAdd() {
-        connection = database.getConnection();
-        database.addIC(preparedStatement,connection,txtName,txtMedicine,txtPrice,txtProspect,txt);
+        Database.addIC(preparedStatement,txtName,txtMedicine,txtPrice,txtProspect,txt);
         onUpdate();
     }
 
@@ -71,12 +69,11 @@ public class IntensiveCareController extends SceneController implements Initiali
     public void onUpdate() {
         System.out.println("da");
         PatientICList.clear();
-        database.updateIC(query,preparedStatement,connection,resultSet,PatientICList,patientsICTable);
+        Database.updateIC(query,preparedStatement,resultSet,PatientICList,patientsICTable);
     }
 
     public void onRemove( ActionEvent actionEvent ) {
-        connection = database.getConnection();
-        database.removeIC(preparedStatement, connection, txtId);
+        Database.removeIC(preparedStatement,  txtId);
         onUpdate();
     }
 
@@ -87,8 +84,7 @@ public class IntensiveCareController extends SceneController implements Initiali
     @FXML
     public void onEdit( ActionEvent actionEvent ) {
         try {
-            connection = database.getConnection();
-            database.editIC(preparedStatement,connection,txt,txtName,txtMedicine,txtPrice,txtProspect,txtId);
+            Database.editIC(preparedStatement,txt,txtName,txtMedicine,txtPrice,txtProspect,txtId);
         } catch (Exception e) {
         }
         onUpdate();
@@ -109,18 +105,10 @@ public class IntensiveCareController extends SceneController implements Initiali
 
     @Override
     public void initialize( URL url, ResourceBundle resourceBundle ) {
-        loadData();
+        Database.loadDataIC(nameCol,medicineCol,priceCol,prospectCol,idCol);
+        onUpdate();
     }
 
-    public void loadData() {
-        connection = database.getConnection();
-        onUpdate();
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        medicineCol.setCellValueFactory(new PropertyValueFactory<>("medicine"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        prospectCol.setCellValueFactory(new PropertyValueFactory<>("prospect"));
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-    }
 
 
 }

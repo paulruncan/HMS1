@@ -115,4 +115,18 @@
 
 ### The ID Field should never be filled if you want to add something in the system.
 
+## Diagram
+![diagrama.png](src%2Fmain%2Ffoto%2Fdiagrama.png)
+
+# Controllers
+![diagram2.png](src%2Fmain%2Ffoto%2Fdiagram2.png)
+
+# Utils
+![utils.png](src%2Fmain%2Ffoto%2Futils.png)
+
+# Classes
+![Classes.png](src%2Fmain%2Ffoto%2FClasses.png)
+
+# Database
+![database.png](src%2Fmain%2Ffoto%2Fdatabase.png)
 #### Thanks for choosing HMS

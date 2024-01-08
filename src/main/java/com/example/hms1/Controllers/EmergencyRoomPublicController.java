@@ -1,7 +1,7 @@
 package com.example.hms1.Controllers;
 
 import com.example.hms1.Patients.Names;
-import com.example.hms1.database;
+import com.example.hms1.Database;
 import com.example.hms1.utils.SceneController;
 import com.example.hms1.utils.enums.SCENE_IDENTIFIER;
 import javafx.collections.FXCollections;
@@ -41,7 +41,6 @@ public class EmergencyRoomPublicController extends SceneController implements In
     ObservableList<Names> PatientList = FXCollections.observableArrayList();
     int index = -1;
     String query = null;
-    Connection connection = null;
     ResultSet resultSet = null;
     PreparedStatement preparedStatement = null;
     //Patients patient = null;
@@ -68,20 +67,14 @@ public class EmergencyRoomPublicController extends SceneController implements In
     public void onUpdate() {
         System.out.println("da");
         PatientList.clear();
-        database.updatePublicER(query,preparedStatement,connection,resultSet,PatientList,patientsTable);
+        Database.updatePublicER(query,preparedStatement,resultSet,PatientList,patientsTable);
 
     }
 
     @Override
     public void initialize( URL url, ResourceBundle resourceBundle ) {
-        loadDate();
-    }
-
-    public void loadDate() {
-        connection = database.getConnection();
+        Database.loadDateERP(nameCol,idCol);
         onUpdate();
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     }
 
     @FXML
@@ -98,7 +91,7 @@ public class EmergencyRoomPublicController extends SceneController implements In
         String namev1 = txtName.getText();
         int price = 0;
         try {
-            int price1 = database.checkPricePublicER(query, preparedStatement, connection, resultSet, price, namev1);
+            int price1 = Database.checkPricePublicER(query, preparedStatement, resultSet, price, namev1);
             textNume.setText("Nume: " + namev1);
             textPrice.setText("Price: " + price1);
         } catch (Exception e) {
@@ -112,7 +105,7 @@ public class EmergencyRoomPublicController extends SceneController implements In
         String namev1 = txtName.getText();
         PatientList.clear();
         try {
-            database.checkPublicER(query,preparedStatement,connection,resultSet,namev1,PatientList,patientsTable);
+            Database.checkPublicER(query,preparedStatement,resultSet,namev1,PatientList,patientsTable);
             textNume.setText("Nume: " + namev1);
             textPrice.setText("Price:");
         } catch (Exception e){

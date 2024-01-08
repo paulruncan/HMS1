@@ -3,20 +3,23 @@ package com.example.hms1;
 import com.example.hms1.Patients.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.MenuItem;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
+import java.net.ConnectException;
 import java.sql.*;
 
-public class database {
+public class Database {
 
     // Connection databaseLink = null;
     public static Connection getConnection() {
         String url = "jdbc:postgresql://localhost:5432/hospital";
         String username = "postgres";
-        String password = "";
+        String password = "cenago11";
 
         try {
             Connection databaseLink = DriverManager.getConnection(url, username, password);
@@ -45,7 +48,8 @@ public class database {
         return null;
     }
 
-    public static void addER( Connection connection, TextField txtName, TextField txtMedicine, TextField txtPrice ) {
+    public static void addER(TextField txtName, TextField txtMedicine, TextField txtPrice ) {
+        Connection connection = Database.getConnection();
         PreparedStatement preparedStatement;
         String sql = "insert into patients(name,medicine,price) values(?,?,?)";
         try {
@@ -61,7 +65,8 @@ public class database {
         }
     }
 
-    public static void updateER( String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, ObservableList<Patients> PatientList, TableView<Patients> patientsTable ) {
+    public static void updateER( String query, PreparedStatement preparedStatement, ResultSet resultSet, ObservableList<Patients> PatientList, TableView<Patients> patientsTable ) {
+        Connection connection = Database.getConnection();
         query = "select * from patients";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -76,8 +81,9 @@ public class database {
         }
     }
 
-    public static void editER( Connection connection, TextField txtName, TextField txtMedicine, TextField txtPrice, TextField txtId, PreparedStatement preparedStatement ) {
+    public static void editER(TextField txtName, TextField txtMedicine, TextField txtPrice, TextField txtId, PreparedStatement preparedStatement ) {
         try {
+            Connection connection = Database.getConnection();
             String value1 = txtName.getText();
             String value2 = txtMedicine.getText();
             String value3 = txtPrice.getText();
@@ -92,7 +98,8 @@ public class database {
         }
     }
 
-    public static void removeER( PreparedStatement preparedStatement, Connection connection, TextField txtId ) {
+    public static void removeER( PreparedStatement preparedStatement, TextField txtId ) {
+        Connection connection = Database.getConnection();
         String sql = "delete from patients where id = ?";
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -103,7 +110,8 @@ public class database {
         }
     }
 
-    public static void removeAdmin( PreparedStatement preparedStatement, Connection connection, TextField txtId ) {
+    public static void removeAdmin( PreparedStatement preparedStatement, TextField txtId ) {
+        Connection connection = Database.getConnection();
         String sql = "delete from accounts where id = ?";
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -114,7 +122,8 @@ public class database {
         }
     }
 
-    public static void addAdmin( PreparedStatement preparedStatement, Connection connection, TextField txtUsername, TextField txtPassword ) {
+    public static void addAdmin( PreparedStatement preparedStatement, TextField txtUsername, TextField txtPassword ) {
+        Connection connection = Database.getConnection();
         String sql = "insert into accounts(username,passwords) values(?,?)";
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -126,7 +135,8 @@ public class database {
         }
     }
 
-    public static void updateAdmin( String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, ObservableList<Medics> medicsList, TableView<Medics> medicsTable ) {
+    public static void updateAdmin( String query, PreparedStatement preparedStatement, ResultSet resultSet, ObservableList<Medics> medicsList, TableView<Medics> medicsTable ) {
+        Connection connection = Database.getConnection();
         query = "select * from accounts";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -141,8 +151,9 @@ public class database {
         }
     }
 
-    public static void editAdmin( PreparedStatement preparedStatement, Connection connection, TextField txtUsername, TextField txtId, TextField txtPassword ) {
+    public static void editAdmin( PreparedStatement preparedStatement, TextField txtUsername, TextField txtId, TextField txtPassword ) {
         try {
+            Connection connection = Database.getConnection();
             String value1 = txtUsername.getText();
             String value2 = txtId.getText();
             Integer intId = Integer.parseInt(value2);
@@ -156,7 +167,8 @@ public class database {
         }
     }
 
-    public static void updatePublicER( String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, ObservableList<Names> PatientList, TableView<Names> patientsTable ) {
+    public static void updatePublicER( String query, PreparedStatement preparedStatement, ResultSet resultSet, ObservableList<Names> PatientList, TableView<Names> patientsTable ) {
+        Connection connection=Database.getConnection();
         query = "select * from patients";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -171,7 +183,8 @@ public class database {
         }
     }
 
-    public static int checkPricePublicER( String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, int price, String namev1 ) {
+    public static int checkPricePublicER( String query, PreparedStatement preparedStatement, ResultSet resultSet, int price, String namev1 ) {
+        Connection connection = Database.getConnection();
         query = "select * from patients";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -186,7 +199,8 @@ public class database {
         return price;
     }
 
-    public static void checkPublicER( String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, String namev1, ObservableList<Names> PatientList, TableView<Names> patientsTable ) {
+    public static void checkPublicER( String query, PreparedStatement preparedStatement, ResultSet resultSet, String namev1, ObservableList<Names> PatientList, TableView<Names> patientsTable ) {
+        Connection connection = Database.getConnection();
         query = "select * from patients";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -201,7 +215,8 @@ public class database {
         }
     }
 
-    public static void addIC( PreparedStatement preparedStatement, Connection connection, TextField txtName, TextField txtMedicine, TextField txtPrice, TextField txtProspect, Text txt ) {
+    public static void addIC( PreparedStatement preparedStatement, TextField txtName, TextField txtMedicine, TextField txtPrice, TextField txtProspect, Text txt ) {
+        Connection connection = Database.getConnection();
         String sql = "insert into patientsIC(name,medicine,price,prospect) values(?,?,?,?)";
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -220,7 +235,8 @@ public class database {
         }
     }
 
-    public static void updateIC( String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, ObservableList<PatientsIntensiveCare> PatientICList, TableView<PatientsIntensiveCare> patientsICTable ) {
+    public static void updateIC( String query, PreparedStatement preparedStatement, ResultSet resultSet, ObservableList<PatientsIntensiveCare> PatientICList, TableView<PatientsIntensiveCare> patientsICTable ) {
+        Connection connection = Database.getConnection();
         query = "select * from patientsic";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -235,7 +251,8 @@ public class database {
         }
     }
 
-    public static void removeIC( PreparedStatement preparedStatement, Connection connection, TextField txtId ) {
+    public static void removeIC( PreparedStatement preparedStatement, TextField txtId ) {
+        Connection connection = Database.getConnection();
         String sql = "delete from patientsIC where id = ?";
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -247,8 +264,9 @@ public class database {
         }
     }
 
-    public static void editIC( PreparedStatement preparedStatement, Connection connection, Text txt, TextField txtName, TextField txtMedicine, TextField txtPrice, TextField txtProspect, TextField txtId ) {
+    public static void editIC( PreparedStatement preparedStatement, Text txt, TextField txtName, TextField txtMedicine, TextField txtPrice, TextField txtProspect, TextField txtId ) {
         try {
+            Connection connection = Database.getConnection();
             String value1 = txtName.getText();
             String value2 = txtMedicine.getText();
             String value3 = txtPrice.getText();
@@ -268,7 +286,8 @@ public class database {
         }
     }
 
-    public static void updateICP(String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, ObservableList<Names>PatientList, TableView<Names>patientsTable){
+    public static void updateICP(String query, PreparedStatement preparedStatement, ResultSet resultSet, ObservableList<Names>PatientList, TableView<Names>patientsTable){
+        Connection connection = Database.getConnection();
         query = "select * from patientsIC";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -283,7 +302,8 @@ public class database {
         }
     }
 
-    public static void checkICP(String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, String namev1, ObservableList<Names>PatientList, TableView<Names>patientsTable){
+    public static void checkICP(String query, PreparedStatement preparedStatement,  ResultSet resultSet, String namev1, ObservableList<Names>PatientList, TableView<Names>patientsTable){
+        Connection connection = Database.getConnection();
         query = "select * from patientsIC";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -298,7 +318,8 @@ public class database {
         }
     }
 
-    public static int checkPriceICP(String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, String namev1, int price){
+    public static int checkPriceICP(String query, PreparedStatement preparedStatement,  ResultSet resultSet, String namev1, int price){
+        Connection connection = Database.getConnection();
         query = "select * from patientsIC ";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -314,7 +335,8 @@ public class database {
         return price;
     }
 
-    public static int checkDaysICP(String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, String namev1, int price , int days){
+    public static int checkDaysICP(String query, PreparedStatement preparedStatement, ResultSet resultSet, String namev1, int price , int days){
+        Connection connection = Database.getConnection();
         query = "select * from patientsIC";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -333,7 +355,8 @@ public class database {
         }
         return price;
     }
-    public static void addMorgue(PreparedStatement preparedStatement, Connection connection, TextField txtName, TextField txtOrgan){
+    public static void addMorgue(PreparedStatement preparedStatement, TextField txtName, TextField txtOrgan){
+        Connection connection = Database.getConnection();
         String sql = "insert into morgue(name,organ) values(?,?)";
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -346,7 +369,8 @@ public class database {
         }
     }
 
-    public static void updateMorgue(String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, ObservableList<Bodies>bodiesList, TableView<Bodies>bodiesTable){
+    public static void updateMorgue(String query, PreparedStatement preparedStatement, ResultSet resultSet, ObservableList<Bodies>bodiesList, TableView<Bodies>bodiesTable){
+        Connection connection = Database.getConnection();
         query = "select * from morgue";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -360,7 +384,8 @@ public class database {
             e.printStackTrace();
         }
     }
-    public static void removeMorgue(PreparedStatement preparedStatement, Connection connection, TextField txtId){
+    public static void removeMorgue(PreparedStatement preparedStatement, TextField txtId){
+        Connection connection = Database.getConnection();
         String sql = "delete from morgue where id = ?";
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -371,8 +396,9 @@ public class database {
             e.printStackTrace();
         }
     }
-    public static void editMorgue(PreparedStatement preparedStatement, Connection connection, TextField txtName, TextField txtId, TextField txtOrgan){
+    public static void editMorgue(PreparedStatement preparedStatement, TextField txtName, TextField txtId, TextField txtOrgan){
         try {
+            Connection connection = Database.getConnection();
             String value1 = txtName.getText();
             String value2 = txtId.getText();
             Integer intId = Integer.parseInt(value2);
@@ -385,7 +411,8 @@ public class database {
         }
     }
 
-    public static void checkMorgue(String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, String namev1, String organv1, ObservableList<Bodies>bodiesList, TableView<Bodies> bodiesTable){
+    public static void checkMorgue(String query, PreparedStatement preparedStatement, ResultSet resultSet, String namev1, String organv1, ObservableList<Bodies>bodiesList, TableView<Bodies> bodiesTable){
+        Connection connection = Database.getConnection();
         query = "select * from morgue";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -401,7 +428,8 @@ public class database {
         }
     }
 
-    public static void checkMorguePublic(String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, String namev1, ObservableList<Names>PatientList,TableView<Names>patientsTable){
+    public static void checkMorguePublic(String query, PreparedStatement preparedStatement, ResultSet resultSet, String namev1, ObservableList<Names>PatientList,TableView<Names>patientsTable){
+        Connection connection = Database.getConnection();
         query = "select * from morgue";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -416,7 +444,8 @@ public class database {
         }
     }
 
-    public static void updateMorguePublic(String query, PreparedStatement preparedStatement, Connection connection, ResultSet resultSet, ObservableList<Names>PatientList, TableView<Names>patientsTable){
+    public static void updateMorguePublic(String query, PreparedStatement preparedStatement, ResultSet resultSet, ObservableList<Names>PatientList, TableView<Names>patientsTable){
+        Connection connection = Database.getConnection();
         query = "select * from morgue";
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -429,5 +458,72 @@ public class database {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void loadDateER( TableColumn<Patients, String> nameCol, TableColumn<Patients, String> medicineCol, TableColumn<Patients, Integer> priceCol, TableColumn<Patients, Integer> idCol ) {
+       Connection connection = Database.getConnection();
+
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        medicineCol.setCellValueFactory(new PropertyValueFactory<>("medicine"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+    }
+
+    public static void loadDataAdmin( TableColumn<Medics, String> usernameCol, TableColumn<Medics, String> passwordCol, TableColumn<Medics, Integer> idCol ) {
+        Connection connection = Database.getConnection();
+        usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+        passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+    }
+
+    public static void loadDateERP( TableColumn<Names, String> nameCol, TableColumn<Names, Integer> idCol ) {
+        Connection connection = Database.getConnection();
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+    }
+
+
+    public static void loadDataIC( TableColumn<PatientsIntensiveCare, String> nameCol, TableColumn<PatientsIntensiveCare, String> medicineCol, TableColumn<PatientsIntensiveCare, Integer> priceCol, TableColumn<PatientsIntensiveCare, Integer> prospectCol, TableColumn<PatientsIntensiveCare, Integer> idCol ) {
+        Connection connection = Database.getConnection();
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        medicineCol.setCellValueFactory(new PropertyValueFactory<>("medicine"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        prospectCol.setCellValueFactory(new PropertyValueFactory<>("prospect"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+    }
+
+    public static int validateLogin(Text credentialsText, TextField usernameField, TextField passwordField) {
+        Database connectNow = new Database();
+        Connection connection = connectNow.getConnection();
+
+        String verifyLogin = " select count(1) from accounts where username = '" + usernameField.getText() + "' and passwords = '" + passwordField.getText() + "'";
+        String checkIfAdmin = " select username from accounts where username = '" + usernameField.getText() + "' and passwords = '" + passwordField.getText() + "'";
+        try {
+            Statement statement = connection.createStatement();
+            Statement statement1 = connection.createStatement();
+            ResultSet queryResult = statement.executeQuery(verifyLogin);
+            ResultSet queryResultAdmin = statement1.executeQuery(checkIfAdmin);
+
+            while (queryResult.next() && queryResultAdmin.next()) {
+                if (queryResult.getInt(1) == 1) {
+                    credentialsText.setText("Enter credentials!");
+                    if (queryResultAdmin.getString(1).equals("admin"))
+                        return 2;
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static void loadDataMorgue( TableColumn<Bodies, String> nameCol, TableColumn<Bodies, String> organCol, TableColumn<Bodies, Integer> idCol ) {
+        Connection connection = Database.getConnection();
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        organCol.setCellValueFactory(new PropertyValueFactory<>("organ"));
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     }
 }
